@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  hadoop:
+    build: 
+        context: .
+        target: hadoop
+    container_name: hadoop
+    ports:
+    - "50070:50070"
+    - "50075:50075"
+    - "50060:50060"
+    - "50030:50030"
+    - "19888:19888"
+    - "10033:1033"
+    - "8032:8032"
+    - "8030:8030"
+    - "8088:8088"
+    - "8033:8033"
+    - "8042:8042"
+    - "8188:8188"
+    - "8047:8047"
+    - "8788:8788"
+    - "9000:9000"
+    volumes: 
+    - /tmp/hadoop_image/logs:/opt/hadoop/logs \
+    - /tmp/hadoop_image/shared:/root/shared \
+    tty: true
+
+  flume:
+    build: 
+        context: .
+        target: flume
+    depends_on:
+      - hadoop
+    container_name: flume
+    ports:
+    - "7199:7199"
